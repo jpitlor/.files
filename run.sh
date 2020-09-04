@@ -1,9 +1,5 @@
 #!/bin/bash
 
-function one-line() {
-    $* | while read -r line; do echo -en "\r" "$line"; done
-}
-
 black=30
 red=31
 green=32
@@ -50,16 +46,51 @@ function assert() {
     fi
 }
 
+function one-line() {
+    $* | while read -r line; do echo -en "\r$line"; done
+}
+
+function repeat() {
+    printf "%$1s" " "
+}
+
+function execute() {
+    empty_row="$(repeat `tput cols`)"
+    use-color $bg_red $red $empty_row
+
+    use-color $bg_black $yellow "$1..."
+    one-line $2
+    echo -en "\r$empty_row\r\033[1A$empty_row\r\033[1A"
+    use-color $bg_black $green "✔️ $1"
+}
+
 clear
 cat ascii_art.txt
 
 title "Checking Prerequisites"
 
-assert "Script is running as root" `whoami` "root" "Please run this script as root or using sudo"
+assert "Script is running as root" \
+    `whoami` "root" \
+    "Please run this script as root or using sudo"
+
+has_network=`curl google.com > /dev/null; echo $?`
+assert "Script has network connectivity" \
+    has_network "0" \
+    "Please connect to the internet"
+
+title "Reading Secrets"
 
 title "Installing Software"
-# sudo apt update
-# sudo apt upgrade -y
+
+execute "Updating" "sudo apt-get update"
+
+execute "Upgrading" "sudo apt-get upgrade -y"
+
+execute "Adding New Stuff" "sudo apt-get install git vim build-essential wget zsh"
+
+execute "Installing Oh My Zsh" "sh -c \"$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)\""
+
+execute "Installing NVM" "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash"
 
 title "Adding Config Files"
 
