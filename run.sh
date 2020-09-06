@@ -78,20 +78,35 @@ assert "Script has network connectivity" \
     has_network "0" \
     "Please connect to the internet"
 
-title "Reading Secrets"
+# title "Reading Secrets"
+# npm auth token
+# pubkeys
 
 title "Installing Software"
 
-execute "Updating" "sudo apt-get update"
+execute \
+    "Updating" \
+    "sudo apt-get update"
 
-execute "Upgrading" "sudo apt-get upgrade -y"
+execute \
+    "Upgrading" \
+    "sudo apt-get upgrade -y"
 
-execute "Adding New Stuff" "sudo apt-get install git vim build-essential wget zsh"
+execute \
+    "Adding New Stuff" \
+    "sudo apt-get install git vim build-essential wget zsh sl toilet cowsay fortune imagemagick x11-apps ruby-full maven"
 
-execute "Installing Oh My Zsh" "sh -c \"$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)\""
+execute \
+    "Installing Oh My Zsh" \
+    "sh -c \"$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)\""
 
-execute "Installing NVM" "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash"
+execute \
+    "Installing NVM" \
+    "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash"
 
 title "Adding Config Files"
+cp .gitconfig /home/$SUDO_USER
+cp .zshrc /home/$SUDO_USER
+cp .vimrc /home/$SUDO_USER
 
 title "Success! Enjoy your new computer!"
