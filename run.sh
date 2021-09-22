@@ -94,7 +94,7 @@ execute \
 
 execute \
     "Adding New Stuff" \
-    "sudo apt-get install git vim build-essential wget zsh sl toilet cowsay fortune imagemagick x11-apps ruby-full maven"
+    "sudo apt-get install git vim build-essential wget zsh sl toilet cowsay fortune imagemagick x11-apps ruby-full maven dnsutils"
 
 execute \
     "Installing Oh My Zsh" \
