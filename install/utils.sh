@@ -70,3 +70,21 @@ function execute() {
 function add_config_file() {
     ln -s ../dotfiles/$1 /home/$(whoami)/$1
 }
+
+function run_with_maybe_flag() {
+    quiet_flag = $1
+    shift
+
+    should_use_flag = $1
+    shift
+
+    cmd = $1
+    shift
+
+    if $should_use_flag
+    then
+        $cmd $quiet_flag $@
+    else
+        $cmd $@
+    fi
+}

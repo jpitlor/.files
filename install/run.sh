@@ -2,12 +2,21 @@
 set -e
 
 REPO=${REPO:-https://github.com/piticent123/.files}
-echo $REPO
+QUIET=${QUIET:-1}
+
+if [[ $QUIET -ne 0 ]]
+then
+    if [[ "$EUID" -ne 0 ]]
+    then 
+        echo "Please run as root or without QUIET flag"
+        exit 1
+    fi
+fi
 
 if ! command -v git &> /dev/null
 then
     echo "Git is needed to run this script"
-    sudo apt-get install git
+    run_with_maybe_flag $QUIET "-y" sudo apt-get install git
 fi
 
 temp_dir=$(mktemp -d)
@@ -17,7 +26,8 @@ cd $temp_dir
 git clone $REPO .files
 cd .files/install
 source ./utils.sh
-# clear
+
+clear
 cat ascii_art.txt
 
 # title "Reading Secrets"
@@ -28,15 +38,15 @@ title "Installing Software"
 
 execute \
     "Updating" \
-    "sudo apt-get update"
+    sudo apt-get update
 
 execute \
     "Upgrading" \
-    "sudo apt-get upgrade -y"
+    run_with_maybe_flag $QUIET "-y" sudo apt-get upgrade
 
 execute \
     "Installing new packages" \
-    "sudo apt-get install git vim build-essential wget zsh sl toilet cowsay fortune imagemagick x11-apps ruby-full maven dnsutils"
+    run_with_maybe_flag $QUIET "-y" sudo apt-get install git vim build-essential wget zsh sl toilet cowsay fortune imagemagick x11-apps ruby-full maven dnsutils
 
 execute \
     "Installing Oh My Zsh" \

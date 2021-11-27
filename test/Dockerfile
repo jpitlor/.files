@@ -12,4 +12,5 @@ WORKDIR $APP
 COPY . $REPO
 COPY ./install/run.sh run.sh
 
-ENTRYPOINT ["/app/run.sh"]
+ENV QUIET=1
+ENTRYPOINT ["sudo", "/app/run.sh"]
