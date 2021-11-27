@@ -1,6 +1,10 @@
 #!/bin/bash
+set -e
 
-if ! command -v <the_command> &> /dev/null
+REPO=${REPO:-https://github.com/piticent123/.files}
+echo $REPO
+
+if ! command -v git &> /dev/null
 then
     echo "Git is needed to run this script"
     sudo apt-get install git
@@ -10,10 +14,10 @@ temp_dir=$(mktemp -d)
 home_dir=/home/$(whoami)
 
 cd $temp_dir
-git clone https://github.com/piticent123/.files
+git clone $REPO .files
 cd .files/install
 source ./utils.sh
-clear
+# clear
 cat ascii_art.txt
 
 # title "Reading Secrets"
@@ -42,8 +46,12 @@ execute \
     "Installing NVM" \
     "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash"
 
+# RVM?
+# SDKman (java)?
+# maven?
+
 title "Adding Config Files"
-for $dotfile in $(ls ../dotfiles); do
+for dotfile in $(ls ../dotfiles); do
     echo "Adding dotfile $dotfile"
     add_config_file $dotfile
 done
