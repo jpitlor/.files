@@ -5,3 +5,6 @@ name = Jordan Pitlor
 [core]
 autocrlf = true
 eol = lf
+
+[init]
+defaultBranch = main
