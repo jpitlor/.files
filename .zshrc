@@ -1,6 +1,5 @@
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 export ZSH="/usr/local/share/oh-my-zsh"
-export KUBECONFIG="/etc/rancher/k3s/k3s.yaml"
 
 alias tmux="tmux -2"
 
