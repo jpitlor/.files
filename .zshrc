@@ -1,5 +1,6 @@
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 export ZSH="/usr/local/share/oh-my-zsh"
+export SDKMAN_OFFLINE_MODE='false'
 
 alias tmux="tmux -2"
 
