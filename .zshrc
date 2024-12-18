@@ -1,4 +1,4 @@
-export PATH=$HOME/.local/bin:$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/.local/bin:$HOME/bin:/usr/local/bin:/usr/sbin:$PATH
 export ZSH="/usr/local/share/oh-my-zsh"
 export SDKMAN_OFFLINE_MODE=false
 
