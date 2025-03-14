@@ -14,6 +14,7 @@ set tabstop=4
 set shiftwidth=4
 set cursorline
 set fileformat=unix
+set paste
 
 nnoremap <leader>n :NERDTreeFocus<CR>
 nnoremap <C-n> :NERDTree<CR>
