@@ -8,3 +8,6 @@ eol = lf
 
 [init]
 defaultBranch = main
+
+[safe]
+directory = *
